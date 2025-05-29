@@ -3,7 +3,19 @@ Docker containers to hold mock singleton paymaster + helpers to setup local AA e
 
 ## Setup
 
-Run `docker-compose up -d` to start the containers.
+- Install and start Docker
+- Setup environment (Anvil local network , deploy contracts, Alto Bundler node, Mock Paymaster node):
+
+```
+git clone https://github.com/nhancv/pimlicolabs-mock-aa-environment.git
+cd pimlicolabs-mock-aa-environment
+docker-compose up -d
+```
+
+### Endpoints
+- `Anvil` at **localhost:8545**
+- `Alto Bundler` at **localhost:4337**
+- `Mock Paymaster` at **localhost:3000**
 
 ## Contract Deployments
 
@@ -45,3 +57,6 @@ This environment will deploy the following contracts:
 "0x00004EC70002a32400f8ae005A26081065620D20", // LightAccountFactory v1.1.0
 "0xae8c656ad28F2B59a196AB61815C16A0AE1c3cba", // LightAccount v1.1.0 implementation
 ```
+
+## Smart Account Client Example
+https://github.com/nhancv/script-erc4337-aa-pimlico-example

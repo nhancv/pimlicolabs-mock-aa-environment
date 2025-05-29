@@ -2,12 +2,26 @@ services:
   anvil:
     image: ghcr.io/foundry-rs/foundry:nightly-776897b169e17117be345bf4a226e093ca768c17
     ports: [ "8545:8545" ]
-    entrypoint: [ "anvil", "--host", "0.0.0.0", "--block-time", "0.1", "--silent", "--hardfork", "prague"]
+    entrypoint:
+      [
+        "anvil",
+        "--host",
+        "0.0.0.0",
+        "--block-time",
+        "0.1",
+        "--silent",
+        "--hardfork",
+        "prague",
+      ]
     # Uncomment this if you want to use a fork
     #entrypoint: [ "anvil", "--chain-id", "1", "--fork-url", "http://your_node:845", "--host", "0.0.0.0", "--block-time", "0.1", "--silent"]
     platform: linux/amd64
     healthcheck:
-      test: ["CMD-SHELL", "cast rpc web3_clientVersion | grep -c anvil > /dev/null "]
+      test:
+        [
+          "CMD-SHELL",
+          "cast rpc web3_clientVersion | grep -c anvil > /dev/null ",
+        ]
       start_interval: 250ms
       start_period: 10s
       interval: 30s
@@ -40,7 +54,7 @@ services:
         condition: service_completed_successfully
     volumes:
       - ./mock-alto-bundler/alto-config.json:/app/alto-config.json
-    entrypoint: ["node", "src/lib/cli/alto.js", "run", "--config", "/app/alto-config.json"]
+    command: [ "./alto", "run", "--config", "alto-config.json" ]
 
   contract-deployer:
     build:
