@@ -60,3 +60,7 @@ This environment will deploy the following contracts:
 
 ## Smart Account Client Example
 https://github.com/nhancv/script-erc4337-aa-pimlico-example
+
+## Docs: 
+
+- Pimlico Docker Testing: https://docs.pimlico.io/guides/how-to/testing/docker
