@@ -64,3 +64,5 @@ https://github.com/nhancv/script-erc4337-aa-pimlico-example
 ## Docs: 
 
 - Pimlico Docker Testing: https://docs.pimlico.io/guides/how-to/testing/docker
+- Alto Bundler self-host: https://docs.pimlico.io/references/bundler/self-host
+- Ultra-Relay Bundler alternative: https://github.com/zerodevapp/ultra-relay
