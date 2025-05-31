@@ -10,6 +10,10 @@ Docker containers to hold mock singleton paymaster + helpers to setup local AA e
 git clone https://github.com/nhancv/pimlicolabs-mock-aa-environment.git
 cd pimlicolabs-mock-aa-environment
 docker-compose up -d
+
+# To rebuild & restart service(s) if you have any change on source code
+docker-compose up --build --force-recreate
+docker-compose up --build --force-recreate <service-name>
 ```
 
 ### Endpoints
