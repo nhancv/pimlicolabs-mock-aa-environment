@@ -36,9 +36,11 @@ export const getDummyPaymasterData = ({
 	is06,
 	paymaster,
 	paymasterMode,
-}: { is06: boolean; paymaster: Address; paymasterMode: PaymasterMode }):
-	| { paymaster: Address; paymasterData: Hex }
-	| { paymasterAndData: Hex } => {
+}: {
+	is06: boolean;
+	paymaster: Address;
+	paymasterMode: PaymasterMode;
+}): { paymaster: Address; paymasterData: Hex } | { paymasterAndData: Hex } => {
 	let encodedDummyData: Hex;
 
 	const validUntil = 0;
@@ -57,7 +59,7 @@ export const getDummyPaymasterData = ({
 				"uint48", // validAfter
 				"bytes", // signature
 			],
-			[modeAndAllowBundlers, validUntil, validAfter, constants.dummySignature],
+			[modeAndAllowBundlers, validUntil, validAfter, constants.dummySignature]
 		);
 	} else {
 		encodedDummyData = encodePacked(
@@ -82,12 +84,12 @@ export const getDummyPaymasterData = ({
 				constants.exchangeRate,
 				paymasterValidationGasLimit,
 				constants.treasury,
-			],
+			]
 		);
 
 		encodedDummyData = encodePacked(
 			["bytes", "bytes"],
-			[encodedDummyData, constants.dummySignature],
+			[encodedDummyData, constants.dummySignature]
 		);
 	}
 
@@ -132,7 +134,7 @@ export const getSignedPaymasterData = async ({
 				"uint48", // validUntil
 				"uint48", // validAfter
 			],
-			[modeAndAllowBundlers, validUntil, validAfter],
+			[modeAndAllowBundlers, validUntil, validAfter]
 		);
 	} else {
 		const paymasterValidationGasLimit = 1n;
@@ -168,7 +170,7 @@ export const getSignedPaymasterData = async ({
 				constants.exchangeRate,
 				paymasterValidationGasLimit,
 				constants.treasury,
-			],
+			]
 		);
 	}
 
@@ -295,6 +297,12 @@ export const deployPaymasters = async ({
 			client: walletClient,
 		}),
 	];
+
+	console.log("Deployed singleton paymasters", {
+		singletonPaymaster06: singletonPaymaster06.address,
+		singletonPaymaster07: singletonPaymaster07.address,
+		singletonPaymaster08: singletonPaymaster08.address,
+	});
 
 	// Fund the paymasters.
 	await singletonPaymaster06.write.deposit({

@@ -15,12 +15,10 @@ import {
 import {
 	type BundlerClient,
 	type UserOperation,
-	entryPoint06Address,
-	entryPoint07Address,
-	entryPoint08Address,
 } from "viem/account-abstraction";
 import { fromZodError } from "zod-validation-error";
 import {
+	constants,
 	getSingletonPaymaster06Address,
 	getSingletonPaymaster07Address,
 	getSingletonPaymaster08Address,
@@ -47,6 +45,9 @@ import {
 	getDummyPaymasterData,
 	getSignedPaymasterData,
 } from "./singletonPaymasters";
+
+const { entryPoint06Address, entryPoint07Address, entryPoint08Address } =
+	constants;
 
 const handlePmSponsor = async ({
 	entryPoint,
@@ -93,11 +94,11 @@ const handlePmSponsor = async ({
 			op.callGasLimit = maxBigInt(op.callGasLimit, callGasLimit);
 			op.preVerificationGas = maxBigInt(
 				op.preVerificationGas,
-				preVerificationGas,
+				preVerificationGas
 			);
 			op.verificationGasLimit = maxBigInt(
 				op.verificationGasLimit,
-				verificationGasLimit,
+				verificationGasLimit
 			);
 		} catch (e: unknown) {
 			if (!(e instanceof BaseError)) throw new InternalBundlerError();
@@ -111,7 +112,7 @@ const handlePmSponsor = async ({
 	) {
 		throw new RpcError(
 			"Gas Limit values (preVerificationGas, verificationGasLimit, callGasLimit) must be set",
-			ValidationErrors.InvalidFields,
+			ValidationErrors.InvalidFields
 		);
 	}
 
@@ -141,7 +142,7 @@ const validateEntryPoint = (entryPoint: Address) => {
 	) {
 		throw new RpcError(
 			"EntryPoint not supported",
-			ValidationErrors.InvalidFields,
+			ValidationErrors.InvalidFields
 		);
 	}
 };
@@ -171,13 +172,13 @@ const handleMethod = async ({
 
 	if (parsedBody.method === "pm_sponsorUserOperation") {
 		const params = pmSponsorUserOperationParamsSchema.safeParse(
-			parsedBody.params,
+			parsedBody.params
 		);
 
 		if (!params.success) {
 			throw new RpcError(
 				fromZodError(params.error).message,
-				ValidationErrors.InvalidFields,
+				ValidationErrors.InvalidFields
 			);
 		}
 
@@ -198,13 +199,13 @@ const handleMethod = async ({
 
 	if (parsedBody.method === "pm_getPaymasterStubData") {
 		const params = pmGetPaymasterStubDataParamsSchema.safeParse(
-			parsedBody.params,
+			parsedBody.params
 		);
 
 		if (!params.success) {
 			throw new RpcError(
 				fromZodError(params.error).message,
-				ValidationErrors.InvalidFields,
+				ValidationErrors.InvalidFields
 			);
 		}
 
@@ -223,9 +224,9 @@ const handleMethod = async ({
 		const dummyPaymasterGas = is06
 			? {}
 			: {
-					paymasterVerificationGasLimit: toHex(50_000n),
-					paymasterPostOpGasLimit: toHex(100_000n),
-				};
+				paymasterVerificationGasLimit: toHex(50_000n),
+				paymasterPostOpGasLimit: toHex(100_000n),
+			};
 
 		return {
 			...getDummyPaymasterData({
@@ -245,7 +246,7 @@ const handleMethod = async ({
 		if (!params.success) {
 			throw new RpcError(
 				fromZodError(params.error).message,
-				ValidationErrors.InvalidFields,
+				ValidationErrors.InvalidFields
 			);
 		}
 
@@ -290,7 +291,7 @@ const handleMethod = async ({
 		if (!params.success) {
 			throw new RpcError(
 				fromZodError(params.error).message,
-				ValidationErrors.InvalidFields,
+				ValidationErrors.InvalidFields
 			);
 		}
 
@@ -327,7 +328,7 @@ const handleMethod = async ({
 
 	throw new RpcError(
 		`Attempted to call an unknown method ${parsedBody.method}`,
-		ValidationErrors.InvalidFields,
+		ValidationErrors.InvalidFields
 	);
 };
 
@@ -346,7 +347,7 @@ export const createRpcHandler = ({
 		if (!parsedBody.success) {
 			throw new RpcError(
 				fromZodError(parsedBody.error).message,
-				ValidationErrors.InvalidFields,
+				ValidationErrors.InvalidFields
 			);
 		}
 

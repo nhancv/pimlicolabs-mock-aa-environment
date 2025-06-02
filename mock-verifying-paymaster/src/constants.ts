@@ -13,8 +13,11 @@ import {
 } from "viem/account-abstraction";
 
 export const constants = {
+	entryPoint06Address,
+	entryPoint07Address,
+	entryPoint08Address,
 	deterministicDeployer: getAddress(
-		"0x4e59b44847b379578588920ca78fbf26c0b4956c",
+		"0x4e59b44847b379578588920ca78fbf26c0b4956c"
 	),
 	exchangeRate: 30_000_000n,
 	validForSeconds: 60_000,
